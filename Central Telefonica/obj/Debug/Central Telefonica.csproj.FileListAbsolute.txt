@@ -1,0 +1,5 @@
+F:\UTN\Segundo Cuatrimestre\Programacion II\Clases\Central Telefonica\Central Telefonica\bin\Debug\Central Telefonica.dll
+F:\UTN\Segundo Cuatrimestre\Programacion II\Clases\Central Telefonica\Central Telefonica\bin\Debug\Central Telefonica.pdb
+F:\UTN\Segundo Cuatrimestre\Programacion II\Clases\Central Telefonica\Central Telefonica\obj\Debug\Central Telefonica.csprojResolveAssemblyReference.cache
+F:\UTN\Segundo Cuatrimestre\Programacion II\Clases\Central Telefonica\Central Telefonica\obj\Debug\Central Telefonica.dll
+F:\UTN\Segundo Cuatrimestre\Programacion II\Clases\Central Telefonica\Central Telefonica\obj\Debug\Central Telefonica.pdb
