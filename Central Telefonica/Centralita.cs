@@ -8,62 +8,83 @@ namespace Central_Telefonica
 {
     class Centralita
     {
-        protected List<Llamada> _listaDeLlamadas;
+        private List<Llamada> _listaDeLlamadas;
         protected string _razonSocial;
 
-        float GananciaPorLocal
+        public float GananciaPorLocal
         {
-            get
+            get { return CalcularGanancias(TipoLlamada.Local); }
+        }
+
+        public float GananciaPorProvincial
+        {
+            get { return CalcularGanancias(TipoLlamada.Provincial); }
+        }
+
+        public float GananciaPorTotal
+        {
+            get { return CalcularGanancias(TipoLlamada.Todas); }
+        }
+
+        public List<Llamada> Llamadas
+        {
+            get { return this._listaDeLlamadas; }
+        }
+
+        private float CalcularGanancias(TipoLlamada tipo)
+        {
+            float calculoGananciasLocal = 0;
+            float calculoGananciasProvincial = 0;
+            foreach (Llamada unaLlamada in this.Llamadas)
             {
-                return CalcularGanancia(TipoLlamada.Local);
+                if (unaLlamada is Local)
+                {
+                    calculoGananciasLocal += ((Local)unaLlamada).CostoLlamada;
+                }
+                else
+                {
+                    if (unaLlamada is Provincial)
+                    {
+                        calculoGananciasProvincial += ((Provincial)unaLlamada).CostoLlamada;
+                    }
+                }
             }
+            switch (tipo)
+            {
+                case TipoLlamada.Local:
+                    return calculoGananciasLocal;
+                case TipoLlamada.Provincial:
+                    return calculoGananciasProvincial;
+                case TipoLlamada.Todas:
+                    return calculoGananciasLocal + calculoGananciasProvincial;
+            }
+            return 0;
         }
 
         public Centralita()
         {
-            this._razonSocial = "NO TIENE";
             this._listaDeLlamadas = new List<Llamada>();
         }
 
-        public float CalcularGanancia(TipoLlamada tipo)
+        public Centralita(string nombreEmpresa)
+            : this()
         {
+            this._razonSocial = nombreEmpresa;
+        }
 
-            float resultado = 0;
-            switch (tipo)
+        public string Mostrar()
+        {
+            string retorno = "Razon Social: " + this._razonSocial + " / Ganancia Total: " + this.GananciaPorTotal + " / Ganancia Local: " + this.GananciaPorLocal + " / Ganancia Provincial: " + this.GananciaPorProvincial;
+            foreach (Llamada unaLlamada in this.Llamadas)
             {
-                case TipoLlamada.Local:
-                    foreach (Llamada i in _listaDeLlamadas)
-                    {
-                        if (i is Local)
-                        {
-                            resultado += (float)((Local)i).CalcularCosto();
-                        }
-                    }
-                    break;
-                case TipoLlamada.Provincial:
-                    foreach (Llamada i in _listaDeLlamadas)
-                    {
-                        if (i is Provincial)
-                        {
-                            resultado += (float)((Provincial)i).CalcularCosto();
-                        }
-                    }
-                    break;
-                case TipoLlamada.Todas:
-                    foreach (Llamada i in _listaDeLlamadas)
-                    {
-                        if (i is Provincial)
-                        {
-                            resultado += (float)((Provincial)i).CalcularCosto();
-                        }
-                        if (i is Provincial)
-                        {
-                            resultado += (float)((Provincial)i).CalcularCosto();
-                        }
-                    }
-                    break;
-                }
-            return resultado;
+                retorno += unaLlamada.Mostrar();
+            }
+            return retorno;
+        }
+
+        public void OrdenarLlamadas()
+        {
+            this.Llamadas.Sort(Llamada.OrdenarPorDuracion);
         }
 
     }
