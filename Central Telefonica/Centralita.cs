@@ -13,45 +13,59 @@ namespace Central_Telefonica
 
         float GananciaPorLocal
         {
-            get {
-                return CalcularGanancia(TipoLlamada.Local); 
+            get
+            {
+                return CalcularGanancia(TipoLlamada.Local);
             }
         }
 
-        void Centralita() {
+        public Centralita()
+        {
             this._razonSocial = "NO TIENE";
-            this._listaDeLlamadas = new List<Llamada>;
+            this._listaDeLlamadas = new List<Llamada>();
         }
 
-        public float CalcularGanancia(TipoLlamada tipo) {
+        public float CalcularGanancia(TipoLlamada tipo)
+        {
 
             float resultado = 0;
             switch (tipo)
-	        {
-		        case TipoLlamada.Local:
-                        foreach (Llamada i in _listaDeLlamadas) {
-                        if (i is Local) {
+            {
+                case TipoLlamada.Local:
+                    foreach (Llamada i in _listaDeLlamadas)
+                    {
+                        if (i is Local)
+                        {
                             resultado += (float)((Local)i).CalcularCosto();
                         }
+                    }
                     break;
                 case TipoLlamada.Provincial:
-                        foreach (Llamada i in _listaDeLlamadas) {
-                        if (i is Provincial) {
+                    foreach (Llamada i in _listaDeLlamadas)
+                    {
+                        if (i is Provincial)
+                        {
                             resultado += (float)((Provincial)i).CalcularCosto();
                         }
+                    }
                     break;
                 case TipoLlamada.Todas:
-                           if (i is Provincial) {
-                            resultado += (float)((Provincial)i).CalcularCosto();
-                            }
-                        if (i is Provincial) {
+                    foreach (Llamada i in _listaDeLlamadas)
+                    {
+                        if (i is Provincial)
+                        {
                             resultado += (float)((Provincial)i).CalcularCosto();
                         }
-                    break;
+                        if (i is Provincial)
+                        {
+                            resultado += (float)((Provincial)i).CalcularCosto();
+                        }
                     }
-            }
+                    break;
+                }
+            return resultado;
         }
-    }
+
     }
 }
 
